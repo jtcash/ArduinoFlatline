@@ -6,7 +6,7 @@
 # Feel free to contact me at:  #
 #       jtcash@ucsd.edu        #
 #    jeffreytcash@gmail.com    #
-\*#############################*/
+\*############################*/
 
 /** A class to act as the LCD menu and update the LCD
  * according to the what line is selected. Will have submenus

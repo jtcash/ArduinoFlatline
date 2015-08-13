@@ -6,7 +6,7 @@
 # Feel free to contact me at:  #
 #       jtcash@ucsd.edu        #
 #    jeffreytcash@gmail.com    #
-\*#############################*/
+\*############################*/
 
 #ifndef SaveMenu_h
 #define SaveMenu_h

@@ -6,7 +6,7 @@
 # Feel free to contact me at:  #
 #       jtcash@ucsd.edu        #
 #    jeffreytcash@gmail.com    #
-\*#############################*/
+\*############################*/
 
 #ifndef SubMenu_h
 #define SubMenu_h

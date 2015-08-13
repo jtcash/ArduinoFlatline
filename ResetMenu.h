@@ -1,4 +1,3 @@
-
 /*############################*\
 #   Created by Jeffrey Cash    #
 # ---------------------------- #
@@ -7,7 +6,7 @@
 # Feel free to contact me at:  #
 #       jtcash@ucsd.edu        #
 #    jeffreytcash@gmail.com    #
-\*#############################*/
+\*############################*/
 
 #ifndef ResetMenu_h
 #define ResetMenu_h

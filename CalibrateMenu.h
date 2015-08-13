@@ -6,7 +6,7 @@
 # Feel free to contact me at:  #
 #       jtcash@ucsd.edu        #
 #    jeffreytcash@gmail.com    #
-\*#############################*/
+\*############################*/
 
 #ifndef CalibrateMenu_h
 #define CalibrateMenu_h

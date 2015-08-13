@@ -7,7 +7,7 @@
 # Feel free to contact me at:  #
 #       jtcash@ucsd.edu        #
 #    jeffreytcash@gmail.com    #
-\*#############################*/
+\*############################*/
 
 #ifndef MemoryHandler_h
 #define MemoryHandler_h
