@@ -1,0 +1,743 @@
+
+//class Differential {
+//public:
+//  Differential() : prevX(0), prevV(0), prevA(0) { }
+//  void insert(int x){
+//    int currV;
+//    if(prevX != 0){
+//      currV = x - prevX;
+//      if(prevV != 0)
+//        prevA = currV - prevV;
+//      prevV = currV;
+//    }
+//    prevX = x;
+//  }
+//  inline int getX(){ return prevX; }
+//  inline int getV(){ return prevV; }
+//  inline int getA(){ return prevA; }
+//private:
+//  int prevX, prevV, prevA;
+//};
+
+
+
+// THE FOLLOWING IS OLD CODE
+
+//class TestSmoother{
+//public:
+//  TestSmoother(){
+//    size = SMOOTHER_DEFAULT_SIZE;
+//    arr = new int[size];
+//    clear();
+//  }
+//  TestSmoother(byte smootherSize){
+//    size = smootherSize;
+//    arr = new int[size];
+//    clear();
+//  }
+//  ~TestSmoother(){
+//    delete[] arr;
+//  }
+//  void insert(int x){
+//    if(startup){
+//      --startup;
+//      arrSum += x;
+//    } else {
+//      arrSum += x - *curPtr;
+//    }
+//    *curPtr++ = x;
+//    if(curPtr == endPtr)
+//      curPtr = arr;
+//  }
+//  int getVal(){
+//    if(startup)
+//      return 0;
+//    return arrSum / size;
+//  }
+//
+//  inline void clear(){
+//    startup = size;
+//    curPtr = arr;
+//    endPtr = arr + size;
+//    arrSum = 0;
+//    memset(arr, 0, sizeof(int)*size);
+//  }
+//private:
+//  byte size; 
+//  byte startup;
+//
+//  int *arr;
+//  int *curPtr;
+//  const int *endPtr;
+//
+//  long arrSum;
+//};
+
+// TODO: Maybe try to optimize so reading through the entire array is not
+//necessary for each call of getVal
+//Have a long value for the sum, and then with each insert, subtract the previous
+//value from the sum and add the new value to arr and the sum
+//class Smoother{
+//public:
+//  Smoother(){
+//    size = SMOOTHER_DEFAULT_SIZE;
+//    arr = new int[size];
+//    clear();
+//  }
+//  Smoother(byte smootherSize){
+//    size = smootherSize;
+//    arr = new int[size];
+//    clear();
+//  }
+//  ~Smoother(){
+//    delete[] arr;
+//  }
+//
+//  void insert(int x){
+//    if(startup)
+//      --startup;
+//      
+//    *curPtr++ = x;
+//    if(curPtr == endPtr)
+//      curPtr = arr;
+//  }
+//
+//  int getVal(){
+//    if(startup)
+//      return 0;
+//      
+//    const int *curp = arr;
+//    long sum = 0;
+//    
+//    while(curp != endPtr)
+//      sum += *curp++;
+//    
+//    return (int)(sum / size);
+//  }
+//
+//  inline void clear(){
+//    memset(arr, 0, sizeof(int)*size);
+//    curPtr = arr;
+//    endPtr = arr + size;
+//    startup = size;
+//  }
+//private:
+//  byte size;
+// 
+//  byte startup;
+//  
+//  int *arr;
+//  int *curPtr;
+//  const int *endPtr;
+//};
+
+/*
+class HeapSmoother{
+public:
+  HeapSmoother(){
+    size = SMOOTHER_DEFAULT_SIZE;
+    arr = new int[size];
+    clear();
+  }
+  HeapSmoother(byte smootherSize){
+    size = smootherSize;
+    arr = new int[size];
+    clear();
+  }
+  ~HeapSmoother(){
+    delete[] arr;
+  }
+
+  void insert(int x){
+    if(startup)
+      --startup;
+      
+    *curPtr++ = x;
+    if(curPtr == endPtr)
+      curPtr = arr;
+  }
+
+  int getVal(){
+    if(startup)
+      return 0;
+      
+    const int *curp = arr;
+    long sum = 0;
+    
+    while(curp != endPtr)
+      sum += *curp++;
+    
+    return (int)(sum / size);
+  }
+
+  inline void clear(){
+    memset(arr, 0, sizeof(int)*size);
+    curPtr = arr;
+    endPtr = arr + size;
+    startup = size;
+  }
+private:
+  byte size;
+ 
+  byte startup;
+  
+  int *arr;
+  int *curPtr;
+  const int *endPtr;
+};
+
+
+class Smoother {
+public:
+  Smoother(){
+    clear();
+  }
+  void clear(){
+    memset(arr, 0, sizeof(arr));
+    curPtr = arr;
+    endPtr = arr + SMOOTHER_SIZE;
+    startup = SMOOTHER_SIZE;
+  }
+  
+  void insert(int x){
+    if(startup)
+      --startup;
+      
+    *curPtr++ = x;
+    if(curPtr == endPtr)
+      curPtr = arr;
+  }
+
+  int getVal(){
+    if(startup)
+      return 0;
+    const int *curp = arr;
+    long sum = 0;
+    
+
+    while(curp != endPtr)
+      sum += *curp++;
+    
+    return (int)(sum / SMOOTHER_SIZE);
+  }
+
+  
+private:
+  int arr[SMOOTHER_SIZE];
+  int *curPtr;
+  const int *endPtr;
+  byte startup;
+};*/
+
+/* //Set isSubMenu
+  int i;
+  for(i=0; i<NUM_ITEMS; ++i)
+    if(subMenus[i]!=NULL)
+      isSubMenu |= 1<<i;
+*/
+}
+
+/*void MainMenu::selectItem(){
+  // If the item is selectable
+  if(!subMenu){
+    SubMenu *sm = subMenus[idx];
+    if(sm != NULL){
+      ///lcd.clear();
+      subMenu = idx;
+      sm->idx = 0;
+    }
+  } else {
+    // Select with the current submenu
+    SubMenu *sm = subMenus[subMenu];
+    if(sm != NULL)
+      sm->selectItem();
+  }
+}
+
+void MainMenu::scrollDown(){
+  if(!subMenu){
+    if(idx < NUM_ITEMS-1)
+        ++idx;
+        
+  } else {
+    // Scroll the current Sub Menu down
+    SubMenu *sm = subMenus[subMenu];
+    if(sm != NULL)
+      sm->scrollDown();
+  }
+}
+
+void MainMenu::scrollUp(){
+  if(!subMenu){
+    if(idx != 0)
+      --idx;
+      
+  } else {
+    // Scroll the current Sub Menu Up
+    SubMenu *sm = subMenus[subMenu];
+    if(sm != NULL)
+      sm->scrollUp();
+  }
+}*/
+/* Functions to show each of the lines in the main menu */
+/*void MainMenu::showLineJobFeet(byte p){
+  snprintf_P(lineBuffer, sizeof(lineBuffer), PSTR("0.JobFeet %d/ms"), loopReps/timeCurrent);  
+  display.println(p, lineBuffer);
+}
+
+void MainMenu::showLineBeltSpeed(byte p){
+  snprintf_P(lineBuffer, sizeof(lineBuffer), PSTR("1.BeltSp; %d"), tempA0);
+  display.println(p, lineBuffer);
+}
+
+void MainMenu::showLineSaveJob(byte p){
+  display.println_P(p, PSTR("3.SaveJob"));
+}
+
+void MainMenu::showLineLoadJob(byte p){
+  display.println_P(p, PSTR("4.LoadJob"));
+}
+
+void MainMenu::showLineResetJob(byte p){
+  //snprintf_P(lineBuffer, sizeof(lineBuffer), PSTR("2.ResetJob");
+  //display.println(p,lineBuffer);
+  display.println_P(p, PSTR("2.ResetJob"));
+}
+
+void MainMenu::showLineTotalWood(byte p){
+  display.println_P(p, PSTR("6.TotalWood"));
+}
+
+void MainMenu::showLineTotalBelt(byte p){
+  display.println_P(p, PSTR("7.TotalBelt"));
+}
+
+void MainMenu::showLineHistory(byte p){
+  display.println_P(p, PSTR("8.History"));
+  if(p==0){
+    unsigned long parts = ((unsigned long)-1)/(60l*60l*10l*12l);
+    snprintf_P(lineBuffer, sizeof(lineBuffer), PSTR("Up: %d; %lu"), timeCurrent/1000, parts);
+    display.println(1,lineBuffer);
+  }
+}
+
+void MainMenu::showLineCalibrate(byte p){
+  display.println_P(p, PSTR("5.Calibrate"));
+ 
+}*/
+
+
+
+/*// Update the screen with the main menu
+void MainMenu::updateMenu(){
+  if(subMenu == 0){
+    // Update the lcd with the menu items specified by idx
+    //void (MainMenu::*lines[NUM_ITEMS])(byte);
+// I think the POINTER_POINTER method is more efficient, 
+//but if not, there's very little of a difference
+#define TEST_POINTER_POINTER
+#ifdef TEST_POINTER_POINTER
+    void (MainMenu::**line)(byte) = &lines[idx];
+    (this->**line)(0);
+    if(idx < NUM_ITEMS-1)
+      (this->**(line+1))(1);
+#else
+    (this->*lines[idx])(0);
+    if(idx < NUM_ITEMS-1)
+      (this->*lines[idx+1])(1);
+#endif
+    // If a line can open to a Sub Menu, highlight and blink
+    if(subMenus[idx] != NULL){
+      display.setCursor(0,0);
+      ///display.home() // APPARANTLY home() is 10x slower than setCursor(0,0)
+      display.blink();
+    } else 
+      display.noBlink();
+  } else {
+    // THIS NULL CHECK CAN MAYBE BE REMOVED IF THE CODE IS ROBUST ENOUGH
+    // Update the current Sub Menu
+    SubMenu *sm = subMenus[subMenu];
+    if(sm != NULL)
+      sm->updateMenu(); 
+  }
+}*/
+
+
+//void saveUnsignedLong(int address, unsigned long data){
+//  EEPROM.put(address, data);
+//}
+//
+//void loadUnsignedLong(int address, unsigned long &data){
+//  //unsigned long toReturn;
+//  EEPROM.get(address, data);
+//  //return toReturn;
+//}
+
+/*
+////extern LiquidCrystal lcd;
+////extern MainMenu menu;
+//
+//#if SERIAL_IS_ACTIVE
+//  #define LOG_DISTANCE_SENSOR false
+//#else
+//  #define LOG_DISTANCE_SENSOR false
+//#endif
+//
+//#define SENSOR_BOARD A0
+//
+//#define PIN_IR_SENSOR A1
+//#define PIN_IR_SENSOR_2 A0
+//
+////#define SENSOR_BELT A1
+//
+//#define VELOCITY_THRESHOLD 10 // The threshold to trigger the recording of a board;
+//#define BELT_MINIMUM 50 // Minimum rotation speed for the belt
+//#define BELT_TIMEOUT_SECONDS 5 // Timeout to clear the roll after
+//
+//
+//#define BELT_TIMEOUT BELT_TIMEOUT_SECONDS*1000 // Timeout to clear the roll after
+//
+//#define RECORDING_LED_PIN 3
+
+extern unsigned long tempA0;
+extern unsigned long timeCurrent;
+extern unsigned long beltAverageDiff;
+extern unsigned long wheelCircumference;
+extern bool calibrating; // True if in calibration mode
+extern volatile unsigned long totalLength;
+extern unsigned long totalBeltLength;*/
+
+
+// TODO RENAME
+// i is the start index for writing into the buffer
+//  size_t fillLineBuffer_P(size_t i, const char *src){
+//    //size_t shift = 0;
+//    char *dest = lineBuffer+i;
+//    for(; i<sizeof(lineBuffer); ++i){
+//       char c = pgm_read_byte_near(src);
+////       Serial.print(i);
+////       Serial.print(',');
+////       Serial.println(c);
+//       if(c == '\0')
+//         return i;
+//       *dest++ = c;
+//       src++;
+//       //lineBuffer[i] = c;
+//    }
+//    return i;
+//  }
+//  size_t fillLineBuffer(size_t i, const char *src){
+//    //size_t shift = 0;
+//    char *dest = lineBuffer+i;
+//    for(; i<sizeof(lineBuffer); ++i){
+//       char c = *src;
+//       if(c == '\0')
+//         return i;
+//       *dest++ = c;
+//       src++;
+//       //lineBuffer[i] = c;
+//    }
+//    return i;
+//  }
+//  inline size_t fillLineBuffer(size_t i, char c){
+//    lineBuffer[i] = c;
+//    return i+1;
+//  }
+//  inline size_t fillLineBuffer(size_t i, int num){
+//    i += snprintf_P(lineBuffer+i, sizeof(lineBuffer)-i, PSTR("%d"), num);
+//    if(i > sizeof(lineBuffer))
+//      i = sizeof(lineBuffer) - 1;
+//    return i;
+//  }
+//  inline size_t fillLineBuffer(size_t i, unsigned int num){
+//    i += snprintf_P(lineBuffer+i, sizeof(lineBuffer)-i, PSTR("%u"), num);
+//    if(i > sizeof(lineBuffer))
+//      i = sizeof(lineBuffer) - 1;
+//    return i;
+//  }
+//  inline size_t fillLineBuffer(size_t i, long num){
+//    i += snprintf_P(lineBuffer+i, sizeof(lineBuffer)-i, PSTR("%l"), num);
+//    if(i > sizeof(lineBuffer))
+//      i = sizeof(lineBuffer) - 1;
+//    return i;
+//  }
+//  inline size_t fillLineBuffer(size_t i, unsigned long num){
+//    i += snprintf_P(lineBuffer+i, sizeof(lineBuffer)-i, PSTR("%lu"), num);
+//    if(i > sizeof(lineBuffer))
+//      i = sizeof(lineBuffer) - 1;
+//    return i;
+//  }
+  //size_t appendLineBuffer(char *dest, 
+//  inline size_t fillLineBuffer(size_t i, ImperialLength impLen){
+//    i += snprintf_P(lineBuffer+i, sizeof(lineBuffer)-i, PSTR("%lu'%d\""), impLen.feet, impLen.inches);
+//    if(i > sizeof(lineBuffer))
+//      i = sizeof(lineBuffer) - 1;
+//    return i;
+//  }
+
+
+
+
+
+
+
+
+
+#define LOOP_SIZE 16
+
+
+#define ROLL_SIZE 8
+
+#define ROLL_MIN_DIFF 30
+
+
+//class TimeRoll {
+//public:
+//  TimeRoll() {
+//    current = array;
+//    endPtr = array + ROLL_SIZE;
+//    clear();
+//  }
+//  
+//  void insert(unsigned long x){
+//    ///unsigned long *endPtr = array + ROLL_SIZE;
+//    if(x-previousValue < ROLL_MIN_DIFF)
+//      return;
+//      
+//    if(startup>0)
+//      --startup;
+//      
+//    *current = x;
+//    if(++current == endPtr)
+//      current = array;
+//  }
+//  unsigned long getAverageDiff(){
+//    ///unsigned long *endPtr = array + ROLL_SIZE;
+//    if(startup>0)
+//      return 0;
+//    
+//    unsigned long *curPtr = current;
+//    unsigned long prevVal = *curPtr++;
+//    unsigned long diffSum = 0;
+//    
+//    // Increment curPtr at start of each loop
+//    while(curPtr != current){
+//      // If curPtr points beyond the array, point it to array[0]
+//      if(curPtr >= endPtr){
+//        curPtr = array;
+//        continue;
+//      }
+//      // Add the difference of this and the previous to the diffSum
+//      diffSum += *curPtr - prevVal;
+//      // Set the prevVal to this' value, increment curPtr
+//      prevVal = *curPtr++;
+//    }
+//    // Return the average difference between inserts
+//    return diffSum/(ROLL_SIZE-1);
+//  }
+//  inline void clear(){
+//    ///unsigned long *endPtr = array + ROLL_SIZE;
+//    memset(array, 0, sizeof(array));
+//    /*unsigned long *clearPtr = array;
+//    while(clearPtr != endPtr)
+//      *clearPtr++ = 0;*/
+//    previousValue = 0;
+//    startup = ROLL_SIZE;
+//  }
+//
+//  
+//private:
+//  ///size_t size;
+//  //int index; // Maybe make byte to save ram?
+//  
+//  unsigned long array[ROLL_SIZE];
+//  unsigned long *current;
+//  unsigned long *endPtr;
+//  unsigned long previousValue;
+//  byte startup;
+//};
+
+
+
+
+
+//class Loop {
+//public:
+//  Loop() {
+//    // Wipe the array
+//    clear();
+//  }
+//  /** Insert an int into the loop */
+//  void insert(int x) {
+//    arr[idx] = x;
+//    if (idx == LOOP_SIZE - 1)
+//      idx = 0;
+//    else
+//      ++idx;
+//  }
+//  //Average of earliest LOOP_SIZE/2 entries
+//  int previousAverage() {
+//    byte c;
+//    char i = idx - LOOP_SIZE / 2;
+//    if (i < 0)
+//      i += LOOP_SIZE;
+//    unsigned int average = 0;
+//    for (c = LOOP_SIZE / 2; c != 0; --c) {
+//      if (i == 0)
+//        i = LOOP_SIZE - 1;
+//      else
+//        --i;
+//      average += arr[(int)i];
+//    }
+//    return average / (LOOP_SIZE / 2);
+//  }
+//  int currentAverage() {
+//    byte c;
+//    char i = idx;
+//    unsigned int average = 0;
+//    for (c = LOOP_SIZE / 2; c != 0; --c) {
+//      if (i == 0)
+//        i = LOOP_SIZE - 1;
+//      else
+//        --i;
+//      average += arr[(int)i];
+//    }
+//    return average / (LOOP_SIZE / 2);
+//  }
+//  int average(){
+//    char i;
+//    unsigned int average = 0;
+//    for(i=0; i<LOOP_SIZE; ++i)
+//      average += arr[(int)i];
+//
+//    return average/(LOOP_SIZE/2);
+//  }
+//  
+//  inline void clear() {
+//    memset(arr, 0, sizeof(arr));
+//    idx = 0;
+//  }
+//private:
+//  int arr[LOOP_SIZE];
+//  byte idx;
+//
+//};
+
+/*
+#define ROLL_SIZE_DEFAULT 8
+
+class TimeRoll {
+public:
+  TimeRoll() {
+    //size = ROLL_SIZE_DEFAULT;
+    TimeRoll(ROLL_SIZE_DEFAULT);
+  }
+  TimeRoll(size_t rollSize){
+    size = rollSize;
+    array = new unsigned long[size];
+  }
+  ~TimeRoll(){
+    delete[] array;
+  }
+
+  void insert(unsigned long x){
+    
+  }
+  
+
+  
+private:
+  size_t size;
+  size_t index;
+  unsigned long *array;
+};
+*/
+
+/*
+void test0() {
+  display.setCursor(0,0);
+  display.clear();
+  display.print(F("STARTING..."));
+  //display.setCursor(0,1);
+  display.setCursor(0,0);
+  display.clear();
+  display.print(F("01234"));
+}
+void test1(){
+  //lcd.home();
+  display.println_P(0,PSTR("STARTING___"));//806
+  display.println_P(0,PSTR("01234"));//806
+}
+
+void test(){//1194
+  unsigned long startm = millis();
+#define REPS 100
+  int i;
+  //const char top[] = "STARTING...";
+  for(i=0; i<REPS; ++i){
+    test0();
+//    display.printString("STARTING...");
+  }
+  unsigned long t0 = millis() - startm;
+  startm = millis();
+
+  for(i=0;i<REPS;++i){
+    test1();
+  }
+
+
+  unsigned long t1 = millis() - startm;
+  display.clear();
+  display.setCursor(0,0);
+  display.print(t0);
+  display.setCursor(0,1);
+  display.print(t1);
+  delay(2000);
+  
+}
+
+#define DO_SPEED_TEST false
+#if SERIAL_IS_ACTIVE && DO_SPEED_TEST
+
+unsigned long testUpdateSpeeds = 0;
+unsigned long testNumber = 0;
+unsigned long testUpdateMin = -1;
+
+
+#define SPEED_REPS 2000
+
+unsigned long testUpdateSpeed(){
+  unsigned long timeStart = millis();
+  int r;
+  for(r=0; r < SPEED_REPS; ++r){
+    menu.updateMenu(); 
+  }
+  return millis() - timeStart;
+}
+
+#define SHOW_TEST(x) Serial.print(#x); Serial.print(F(" = ")); Serial.print(x); Serial.println("ms");
+#define SHOW_AVERAGE(x) Serial.print(F("\t\t")); Serial.print(#x); Serial.print(F(" AVERAGE: ")); Serial.print(x/testNumber); Serial.println("ms")
+#define SHOW_MINIMUM(x) Serial.print(F("\t\t")); Serial.print(#x); Serial.print(F(" MINIMUM: ")); Serial.print(x); Serial.println("ms")
+void speedTests(){
+  //noInterrupts();
+  ++testNumber;
+  Serial.print(SPEED_REPS);
+  Serial.println(F(" reps:"));
+
+  unsigned long testUpdateSpeedResult = testUpdateSpeed();
+  testUpdateSpeeds += testUpdateSpeedResult;
+  if(testUpdateSpeedResult < testUpdateMin)
+    testUpdateMin = testUpdateSpeedResult;
+  
+  
+  SHOW_TEST(testUpdateSpeedResult);
+  SHOW_AVERAGE(testUpdateSpeeds);
+  SHOW_MINIMUM(testUpdateMin);
+  //interrupts();
+}
+
+#endif*/
+
+//void pin2Interrupt(){
+//  job.beltInterrupt();
+//}
