@@ -1,0 +1,22 @@
+  /*LCDisplay(LiquidCrystal &theLcd){
+    // Set the lcd member
+    lcd = theLcd;
+    // Zero-fill the line arrays, which act as a virtual version of the LCD
+    memset(line0, CLEAR_ARRAY_CHAR, sizeof(line0));
+    memset(line1, CLEAR_ARRAY_CHAR, sizeof(line1));
+    // Set the other members to their initial values
+    isBlink = false;
+    cursorX = 0;
+    cursorY = 0;
+  }*/
+  /*LCDisplay() {
+    ///clearLineArrays();
+    // Zero-fill the line arrays, which act as a virtual version of the LCD
+    memset(line0, CLEAR_ARRAY_CHAR, sizeof(line0));
+    memset(line1, CLEAR_ARRAY_CHAR, sizeof(line1));
+    // Initialize members
+    isBlink = false;
+    cursorX = 0;
+    cursorY = 0;
+    ///resetCursor = true;
+  }*/

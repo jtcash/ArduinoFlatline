@@ -1,0 +1,48 @@
+1000 display updates per test; starting speed tests...
+Testing LCDisplay.h:
+	testSimplePrint() 	= 48ms;  	0.05ms/screen refresh
+	testSimplePrint_P() 	= 47ms;  	0.05ms/screen refresh
+
+	testLongPrint() 	= 66ms;  	0.07ms/screen refresh
+	testLongPrint_P() 	= 59ms;  	0.06ms/screen refresh
+
+	testCompoundPrint() 	= 229ms;  	0.23ms/screen refresh
+	testCompoundPrint_P() 	= 222ms;  	0.22ms/screen refresh
+
+	testCompoundRand() 	= 3348ms;  	3.35ms/screen refresh
+	testCompoundRand_P() 	= 3349ms;  	3.35ms/screen refresh
+
+	testFilledRandom() 	= 11622ms;  	11.62ms/screen refresh
+
+Testing LiquidCrystal.h:
+	testDefSimplePrint() 	= 5993ms;  	5.99ms/screen refresh
+	testDefSimplePrint_P() 	= 5989ms;  	5.99ms/screen refresh
+
+	testDefLongPrint() 	= 12408ms;  	12.41ms/screen refresh
+	testDefLongPrint_P() 	= 12404ms;  	12.40ms/screen refresh
+
+	testDefCompound() 	= 10222ms;  	10.22ms/screen refresh
+	testDefCompound_P() 	= 10217ms;  	10.22ms/screen refresh
+
+	testDefRandom() 	= 9188ms;  	9.19ms/screen refresh
+	testDefRandom_P() 	= 9182ms;  	9.18ms/screen refresh
+
+	testDefFilledRand() 	= 14198ms;  	14.20ms/screen refresh
+
+Done.
+
+LCDisplay.h vs only LiquidCrystal.h:
+
+SimplePrint():      	5993	48	 Speedup: 124.85x
+SimplePrint_P():      	5989	47	 Speedup: 127.43x
+
+LongPrint():      	12408	66	 Speedup: 188.00x
+LongPrint_P():      	12404	59	 Speedup: 210.24x
+
+Compound():      	10222	229	 Speedup: 44.64x
+Compound_P():      	10217	222	 Speedup: 46.02x
+
+Random():      	9188	3348	 Speedup: 2.74x
+Random_P():      	9182	3349	 Speedup: 2.74x
+
+FilledRandom():      	14198	11622	 Speedup: 1.22x
